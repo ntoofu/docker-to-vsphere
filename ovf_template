@@ -10,8 +10,8 @@
   </DiskSection>
   <NetworkSection>
     <Info>The list of logical networks</Info>
-    <Network ovf:name="home-100">
-      <Description>The home-100 network</Description>
+    <Network ovf:name="VM Network">
+      <Description>The VM Network network</Description>
     </Network>
   </NetworkSection>
   <VirtualSystem ovf:id="vm">
