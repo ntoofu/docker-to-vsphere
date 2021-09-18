@@ -29,7 +29,7 @@ mkfs.ext3 -U $ROOT_PART_UUID $ROOT_PART
 mount $ROOT_PART img
 mkdir img/boot
 mount $BOOT_PART img/boot
-( cd img && tar xf $TEMP_DIR/img.tar )
+( cd img && tar xf $TEMP_DIR/img.tar --exclude '.dockerenv' )
 grub-install -v --boot-directory img/boot --modules=loopback $TEMP_DIR/img.raw
 
 umount img/boot
