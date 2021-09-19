@@ -123,7 +123,7 @@
         <rasd:ElementName>Hard Disk 1</rasd:ElementName>
         <rasd:HostResource>ovf:/disk/vmdisk1</rasd:HostResource>
         <rasd:InstanceID>11</rasd:InstanceID>
-        <rasd:Parent>7</rasd:Parent>
+        <rasd:Parent>4</rasd:Parent>
         <rasd:ResourceType>17</rasd:ResourceType>
         <vmw:Config ovf:required="false" vmw:key="backing.writeThrough" vmw:value="false"/>
       </Item>
