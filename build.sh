@@ -12,25 +12,27 @@ docker rmi c2v-image
 
 dd if=/dev/zero of=$TEMP_DIR/img.raw bs=1MiB seek=1024 count=0
 parted -s -a opt $TEMP_DIR/img.raw -- \
-    mklabel msdos \
-    mkpart primary ext2 2048s 65535s \
-    set 1 boot on \
-    mkpart primary ext3 65536s -1
+    mklabel gpt \
+    mkpart primary fat32 34s 16383s \
+    set 1 bios_grub on \
+    mkpart primary fat32 16384s 262143s \
+    set 2 boot on \
+    set 2 esp on \
+    mkpart primary ext3 262144s -1
 
 sudo -E /bin/bash -exu << "EOF"
 losetup -P -f $TEMP_DIR/img.raw
 LOOP_DEV=$(losetup -O NAME -n -j $TEMP_DIR/img.raw)
-BOOT_PART=${LOOP_DEV}p1
-ROOT_PART=${LOOP_DEV}p2
-BOOT_PART_UUID=1c60dc6d-c986-48a4-afbb-fb11ba868140
-ROOT_PART_UUID=8afe12e7-fe15-4c44-8394-ad1f672bea92
-mkfs.ext2 -U $BOOT_PART_UUID $BOOT_PART
-mkfs.ext3 -U $ROOT_PART_UUID $ROOT_PART
+BOOT_PART=${LOOP_DEV}p2
+ROOT_PART=${LOOP_DEV}p3
+mkfs.vfat -F 32 $BOOT_PART
+mkfs.ext3 $ROOT_PART
 mount $ROOT_PART img
 mkdir img/boot
 mount $BOOT_PART img/boot
-( cd img && tar xf $TEMP_DIR/img.tar --exclude '.dockerenv' )
-grub-install -v --boot-directory img/boot --modules=loopback $TEMP_DIR/img.raw
+( cd img && tar xf $TEMP_DIR/img.tar --exclude '.dockerenv' --exclude 'boot/boot' )
+grub-install --target=i386-pc --boot-directory img/boot --modules=loopback $TEMP_DIR/img.raw
+grub-install --target=x86_64-efi --boot-directory img/boot --efi-directory img/boot --no-nvram --removable --modules=loopback $TEMP_DIR/img.raw
 
 umount img/boot
 umount img

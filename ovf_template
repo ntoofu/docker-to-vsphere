@@ -143,7 +143,7 @@
       <vmw:Config ovf:required="false" vmw:key="cpuHotAddEnabled" vmw:value="false"/>
       <vmw:Config ovf:required="false" vmw:key="cpuHotRemoveEnabled" vmw:value="false"/>
       <vmw:Config ovf:required="false" vmw:key="memoryHotAddEnabled" vmw:value="false"/>
-      <vmw:Config ovf:required="false" vmw:key="firmware" vmw:value="bios"/>
+      <vmw:Config ovf:required="false" vmw:key="firmware" vmw:value="efi"/>
       <vmw:Config ovf:required="false" vmw:key="cpuAllocation.shares.shares" vmw:value="1000"/>
       <vmw:Config ovf:required="false" vmw:key="cpuAllocation.shares.level" vmw:value="normal"/>
       <vmw:Config ovf:required="false" vmw:key="tools.syncTimeWithHost" vmw:value="false"/>

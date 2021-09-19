@@ -1,3 +1,3 @@
-/dev/cdrom									/mnt/cdrom	auto		noauto,ro		0 0
-UUID=8afe12e7-fe15-4c44-8394-ad1f672bea92	/		ext3	defaults,noatime		0 1
-UUID=1c60dc6d-c986-48a4-afbb-fb11ba868140	/boot	ext2	defaults,noauto			0 0
+/dev/cdrom	/mnt/cdrom	auto	noauto,ro			0 0
+/dev/sda2	/boot		vfat	defaults,noauto		0 0
+/dev/sda3	/			ext3	defaults,noatime	0 1
