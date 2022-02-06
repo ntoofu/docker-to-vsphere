@@ -30,7 +30,7 @@ mkfs.ext3 $ROOT_PART
 mount $ROOT_PART img
 mkdir img/boot
 mount $BOOT_PART img/boot
-( cd img && tar xf $TEMP_DIR/img.tar --exclude '.dockerenv' --exclude 'boot/boot' )
+( cd img && tar xf $TEMP_DIR/img.tar --anchored --exclude '.dockerenv' --exclude 'boot' --same-owner && tar xf $TEMP_DIR/img.tar --anchored --exclude 'boot/boot' --no-same-owner boot )
 grub-install --target=i386-pc --boot-directory img/boot --modules=loopback $TEMP_DIR/img.raw
 grub-install --target=x86_64-efi --boot-directory img/boot --efi-directory img/boot --no-nvram --removable --modules=loopback $TEMP_DIR/img.raw
 
